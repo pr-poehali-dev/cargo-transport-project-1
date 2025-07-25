@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import PriceCalculator from '@/components/PriceCalculator';
 
 const Index = () => {
+  const [showCalculator, setShowCalculator] = useState(false);
   const services = [
     {
       icon: 'Truck',
@@ -110,7 +112,11 @@ const Index = () => {
               Профессиональные грузоперевозки и логистические решения по всей России
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 text-lg px-8 py-4">
+              <Button 
+                size="lg" 
+                className="bg-white text-orange-600 hover:bg-gray-100 text-lg px-8 py-4"
+                onClick={() => setShowCalculator(true)}
+              >
                 <Icon name="Calculator" size={20} className="mr-2" />
                 Рассчитать стоимость
               </Button>
@@ -366,7 +372,11 @@ const Index = () => {
             Получите бесплатную консультацию и расчет стоимости перевозки вашего груза
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100 text-lg px-8 py-4">
+            <Button 
+              size="lg" 
+              className="bg-white text-orange-600 hover:bg-gray-100 text-lg px-8 py-4"
+              onClick={() => setShowCalculator(true)}
+            >
               <Icon name="Calculator" size={20} className="mr-2" />
               Рассчитать стоимость
             </Button>
@@ -437,6 +447,27 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Calculator Modal */}
+      {showCalculator && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-900">Калькулятор стоимости</h2>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => setShowCalculator(false)}
+              >
+                <Icon name="X" size={24} />
+              </Button>
+            </div>
+            <div className="p-6">
+              <PriceCalculator />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
